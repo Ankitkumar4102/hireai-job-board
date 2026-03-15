@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Building2, Clock, Bookmark, BookmarkCheck, IndianRupee, ArrowUpRight } from 'lucide-react';
+import { MapPin, Building2, Clock, Bookmark, BookmarkCheck, IndianRupee } from 'lucide-react';
 import { timeAgo, fmtSalary, initials, strColor, toggleSaved, isSaved } from '../utils/helpers';
 import './JobCard.css';
 

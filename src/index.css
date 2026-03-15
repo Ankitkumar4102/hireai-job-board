@@ -1,0 +1,95 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Backgrounds */
+  --bg:       #07080f;
+  --bg2:      #0e0f1a;
+  --bg3:      #161724;
+  --bg4:      #1d1e2e;
+
+  /* Glass */
+  --glass:       rgba(255,255,255,0.03);
+  --glass-md:    rgba(255,255,255,0.055);
+  --glass-hover: rgba(255,255,255,0.07);
+  --border:      rgba(255,255,255,0.07);
+  --border-md:   rgba(255,255,255,0.11);
+
+  /* Accents */
+  --violet:  #7c6aff;
+  --violet2: #a598ff;
+  --cyan:    #22d3ee;
+  --green:   #4ade80;
+  --amber:   #fbbf24;
+  --rose:    #fb7185;
+  --indigo:  #818cf8;
+
+  /* Text */
+  --t1: #f1f2ff;
+  --t2: #9499c0;
+  --t3: #555878;
+
+  /* Misc */
+  --radius:    14px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+  --shadow:    0 8px 40px rgba(0,0,0,0.45);
+  --font:      'Plus Jakarta Sans', sans-serif;
+  --mono:      'Fira Code', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--t1);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Ambient mesh background */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% -5%,  rgba(124,106,255,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 110%,  rgba(34,211,238,0.06)  0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%,  rgba(124,106,255,0.03) 0%, transparent 60%);
+}
+
+#root { position: relative; z-index: 1; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--t3); }
+
+::selection { background: rgba(124,106,255,0.28); color: var(--t1); }
+
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: var(--font); border: none; background: none; }
+input, textarea, select { font-family: var(--font); }
+img { display: block; }
+
+/* ── Keyframes ── */
+@keyframes fadeUp   { from { opacity:0; transform:translateY(18px) } to { opacity:1; transform:none } }
+@keyframes fadeIn   { from { opacity:0 } to { opacity:1 } }
+@keyframes shimmer  { 0% { background-position:200% 0 } 100% { background-position:-200% 0 } }
+@keyframes spin     { to { transform:rotate(360deg) } }
+@keyframes pulse    { 0%,100%{opacity:1} 50%{opacity:.45} }
+@keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:none} }
+@keyframes glow     { 0%,100%{opacity:.5} 50%{opacity:1} }
+
+.fade-up { animation: fadeUp .5s ease both; }
+.fade-in { animation: fadeIn .4s ease both; }
+
+.shimmer {
+  background: linear-gradient(90deg, var(--bg3) 25%, rgba(255,255,255,0.06) 50%, var(--bg3) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius);
+}

@@ -1,0 +1,119 @@
+.cl-page  { padding: 78px 1.5rem 4rem; min-height: 100vh; }
+.cl-inner { max-width: 1140px; margin: 0 auto; display: flex; flex-direction: column; gap: 2.5rem; }
+
+/* Hero */
+.cl-hero { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.cl-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(124,106,255,.1); border: 1px solid rgba(124,106,255,.25);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: .78rem; font-weight: 700; color: var(--violet2); letter-spacing: .04em;
+}
+.cl-h1 {
+  font-size: clamp(2.2rem, 5.5vw, 3.5rem); font-weight: 800;
+  letter-spacing: -.04em; line-height: 1.1;
+}
+.cl-grad {
+  background: linear-gradient(120deg, var(--violet), #c084fc, var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.cl-sub { color: var(--t2); font-size: 1rem; }
+
+/* Layout */
+.cl-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-items: start; }
+
+/* Form card */
+.cl-form {
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); padding: 1.75rem;
+  display: flex; flex-direction: column; gap: 1.1rem;
+}
+.cl-form-head {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 1rem; font-weight: 700;
+  padding-bottom: .75rem; border-bottom: 1px solid var(--border);
+}
+.cl-field { display: flex; flex-direction: column; gap: 6px; }
+.cl-field label {
+  font-size: .75rem; font-weight: 700; color: var(--t2);
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.cl-field input, .cl-field textarea {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 10px 14px;
+  color: var(--t1); font-size: .9rem; outline: none; resize: vertical;
+  transition: border-color .2s;
+}
+.cl-field input:focus, .cl-field textarea:focus { border-color: rgba(124,106,255,.5); box-shadow: 0 0 0 3px rgba(124,106,255,.08); }
+.cl-field input::placeholder, .cl-field textarea::placeholder { color: var(--t3); }
+.cl-error {
+  background: rgba(251,113,133,.08); border: 1px solid rgba(251,113,133,.2);
+  border-radius: var(--radius); padding: 9px 13px;
+  color: var(--rose); font-size: .84rem;
+}
+.cl-generate {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: linear-gradient(135deg, var(--violet), #a855f7);
+  color: #fff; border-radius: var(--radius); padding: 13px;
+  font-size: .95rem; font-weight: 700; margin-top: .25rem;
+  transition: all .2s; box-shadow: 0 4px 20px rgba(124,106,255,.3);
+}
+.cl-generate:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(124,106,255,.45); }
+.cl-generate:disabled { opacity: .6; cursor: not-allowed; }
+.spinning { animation: spin 1s linear infinite; }
+
+/* Output */
+.cl-output {
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); padding: 1.75rem;
+  display: flex; flex-direction: column; gap: 1rem;
+  min-height: 500px;
+}
+.cl-out-head {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 1rem; font-weight: 700;
+  padding-bottom: .75rem; border-bottom: 1px solid var(--border);
+}
+.cl-copy {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--glass-md); border: 1px solid var(--border);
+  border-radius: 8px; padding: 5px 12px;
+  font-size: .8rem; font-weight: 600; color: var(--t2);
+  transition: all .2s;
+}
+.cl-copy:hover { color: var(--green); border-color: rgba(74,222,128,.35); }
+
+.cl-text {
+  white-space: pre-wrap; word-break: break-word;
+  font-family: var(--font); font-size: .9rem;
+  color: var(--t2); line-height: 1.9;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.25rem; flex: 1;
+  animation: fadeIn .4s ease;
+}
+
+.cl-placeholder {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: .75rem; text-align: center; color: var(--t3);
+  border: 2px dashed var(--border); border-radius: var(--radius); padding: 3rem;
+}
+.cl-placeholder p    { font-size: .9rem; color: var(--t2); }
+.cl-placeholder span { font-size: .78rem; }
+
+.cl-loading {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 1.25rem; color: var(--t2);
+}
+.cl-dots { display: flex; gap: 9px; }
+.cl-dot  {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--violet);
+  animation: pulse 0.9s ease-in-out infinite;
+}
+
+@media (max-width: 780px) {
+  .cl-layout { grid-template-columns: 1fr; }
+  .cl-output { min-height: 320px; }
+}

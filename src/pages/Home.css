@@ -1,0 +1,106 @@
+.home { padding-top: 62px; }
+
+/* ── Hero ── */
+.hero {
+  position: relative; overflow: hidden;
+  text-align: center;
+  padding: 72px 1.5rem 56px;
+  display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+}
+.hero-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 90% 60% at 50% -5%, rgba(124,106,255,.14) 0%, transparent 65%);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(124,106,255,.1); border: 1px solid rgba(124,106,255,.25);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: .78rem; font-weight: 700; color: var(--violet2); letter-spacing: .04em;
+}
+.hero-h1 {
+  font-size: clamp(2.6rem, 7vw, 4.4rem); font-weight: 800;
+  line-height: 1.08; letter-spacing: -.04em; color: var(--t1);
+}
+.hero-grad {
+  background: linear-gradient(120deg, var(--violet), #c084fc, var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-sub { font-size: 1.05rem; color: var(--t2); line-height: 1.7; max-width: 440px; }
+
+/* Search bar */
+.search-bar {
+  display: flex; align-items: center;
+  background: var(--bg2); border: 1px solid var(--border-md);
+  border-radius: var(--radius-xl); padding: 6px 6px 6px 0;
+  width: 100%; max-width: 700px;
+  box-shadow: 0 4px 32px rgba(0,0,0,.3);
+  transition: border-color .2s, box-shadow .2s;
+}
+.search-bar:focus-within {
+  border-color: rgba(124,106,255,.45);
+  box-shadow: 0 4px 32px rgba(0,0,0,.3), 0 0 0 4px rgba(124,106,255,.09);
+}
+.sb-field {
+  flex: 1; display: flex; align-items: center; gap: 10px; padding: 0 16px;
+}
+.sb-icon { color: var(--t3); flex-shrink: 0; }
+.sb-field input {
+  background: none; border: none; outline: none;
+  color: var(--t1); font-size: .92rem; width: 100%;
+}
+.sb-field input::placeholder { color: var(--t3); }
+.sb-field button { color: var(--t3); display: flex; border-radius: 4px; padding: 2px; transition: color .2s; }
+.sb-field button:hover { color: var(--t1); }
+.sb-div { width: 1px; height: 28px; background: var(--border); flex-shrink: 0; }
+.sb-btn {
+  background: var(--violet); color: #fff;
+  border-radius: 18px; padding: 10px 26px;
+  font-size: .9rem; font-weight: 700; flex-shrink: 0;
+  transition: all .2s;
+}
+.sb-btn:hover { background: #9080ff; box-shadow: 0 4px 18px rgba(124,106,255,.45); transform: translateY(-1px); }
+
+/* Stats */
+.hero-stats { display: flex; gap: 3rem; margin-top: .5rem; }
+.hs-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.hs-icon { color: var(--violet2); }
+.hs-val   { font-size: 1.5rem; font-weight: 800; letter-spacing: -.03em; color: var(--t1); line-height: 1; }
+.hs-label { font-size: .75rem; color: var(--t2); }
+
+/* ── Results ── */
+.results { padding: 0 1.5rem 4rem; }
+.results-inner { max-width: 1260px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.25rem; }
+
+.chips-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: 20px; padding: 6px 16px;
+  font-size: .82rem; font-weight: 600; color: var(--t2);
+  transition: all .2s; white-space: nowrap;
+}
+.chip:hover { color: var(--t1); border-color: var(--border-md); background: var(--glass-md); }
+.chip.active { background: rgba(124,106,255,.14); border-color: rgba(124,106,255,.4); color: var(--violet2); }
+
+.results-head { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: .5rem; }
+.results-title { font-size: 1.45rem; font-weight: 800; letter-spacing: -.02em; }
+.results-count { font-size: .85rem; color: var(--t2); margin-top: 2px; }
+
+.jobs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px,1fr)); gap: 1rem; }
+
+.err-bar {
+  background: rgba(251,113,133,.08); border: 1px solid rgba(251,113,133,.2);
+  border-radius: var(--radius); padding: 10px 16px;
+  color: var(--rose); font-size: .875rem;
+}
+.empty {
+  text-align: center; padding: 5rem 2rem; color: var(--t2);
+  display: flex; flex-direction: column; align-items: center; gap: .75rem;
+}
+.empty h3 { font-size: 1.3rem; color: var(--t1); font-weight: 700; }
+
+@media (max-width: 600px) {
+  .search-bar { flex-direction: column; padding: 12px; gap: 8px; }
+  .sb-div { width: 100%; height: 1px; }
+  .sb-btn { width: 100%; text-align: center; }
+  .hero-stats { gap: 2rem; }
+}

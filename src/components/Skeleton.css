@@ -1,0 +1,12 @@
+.sk { display: block; flex-shrink: 0; }
+.sk-card {
+  background: var(--glass); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 1.25rem;
+  display: flex; flex-direction: column; gap: .7rem;
+}
+.sk-row { display: flex; align-items: center; gap: 10px; }
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 1rem;
+}

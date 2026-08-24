@@ -1,19 +1,23 @@
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
-  baseURL: "https://api.groq.com/openai/v1",
-  dangerouslyAllowBrowser: true,
-});
-
 export const generateCoverLetter = async (prompt) => {
-  try {
-    // 1. Force whatever comes in to be a plain string
-    let safePrompt = typeof prompt === 'string' ? prompt : JSON.stringify(prompt);
+  const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
 
-    // 2. Fallback to a default string if it's completely empty or undefined
+  if (!apiKey) {
+    throw new Error("Missing API Key. Please set REACT_APP_OPENAI_API_KEY in your .env or Vercel settings.");
+  }
+
+  const openai = new OpenAI({
+    apiKey: apiKey,
+    baseURL: "https://api.groq.com/openai/v1",
+    dangerouslyAllowBrowser: true,
+  });
+
+  try {
+    let safePrompt = typeof prompt === "string" ? prompt : JSON.stringify(prompt);
+
     if (!safePrompt || safePrompt.trim() === "" || safePrompt === "{}" || safePrompt === "undefined") {
-       safePrompt = "Write a professional cover letter for a software engineer.";
+      safePrompt = "Write a professional cover letter for a software engineer.";
     }
 
     const response = await openai.chat.completions.create({
@@ -21,12 +25,12 @@ export const generateCoverLetter = async (prompt) => {
       messages: [
         {
           role: "user",
-          content: safePrompt, // This is now 100% guaranteed to be a valid string
+          content: safePrompt,
         },
       ],
     });
 
-    return response.choices[0].message.content;
+    return response.choices[0]?.message?.content || "";
   } catch (error) {
     console.error("Error generating cover letter:", error);
     throw error;

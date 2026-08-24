@@ -39,17 +39,28 @@ export default function CoverLetter() {
       setError('Please fill in Job Title and Company Name.');
       return;
     }
-    setError(''); setLetter(''); setLoading(true);
+    
+    setError(''); 
+    setLetter(''); 
+    setLoading(true);
+    
     try {
-      const result = await generateCoverLetter(form);
+      // 1. Convert the 'form' object into a text string prompt
+      const promptText = `Write a professional cover letter for the position of ${form.jobTitle} at ${form.company}. 
+      My relevant skills are: ${form.skills || 'Not specified'}. 
+      My experience includes: ${form.experience || 'Not specified'}.
+      Keep it professional, concise, and engaging.`;
+
+      // 2. Pass the newly created string to the AI
+      const result = await generateCoverLetter(promptText);
+      
       setLetter(result);
     } catch {
-      setError('Generation failed. Check your OpenAI key in .env, or use demo mode.');
+      setError('Generation failed. Check your API key or network connection.');
     } finally {
       setLoading(false);
     }
   };
-
   const copy = () => {
     navigator.clipboard.writeText(letter);
     setCopied(true);

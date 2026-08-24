@@ -34,7 +34,7 @@ export default function CoverLetter() {
 
   const onChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
 
-  const generate = async () => {
+ const generate = async () => {
     if (!form.jobTitle.trim() || !form.company.trim()) {
       setError('Please fill in Job Title and Company Name.');
       return;
@@ -45,18 +45,16 @@ export default function CoverLetter() {
     setLoading(true);
     
     try {
-      // 1. Convert the 'form' object into a text string prompt
       const promptText = `Write a professional cover letter for the position of ${form.jobTitle} at ${form.company}. 
       My relevant skills are: ${form.skills || 'Not specified'}. 
       My experience includes: ${form.experience || 'Not specified'}.
       Keep it professional, concise, and engaging.`;
 
-      // 2. Pass the newly created string to the AI
       const result = await generateCoverLetter(promptText);
-      
       setLetter(result);
-    } catch {
-      setError('Generation failed. Check your API key or network connection.');
+    } catch (err) {
+      // THIS WILL NOW SHOW YOU THE EXACT CAUSE OF THE FAILURE ON SCREEN
+      setError(`Error: ${err.message}`);
     } finally {
       setLoading(false);
     }

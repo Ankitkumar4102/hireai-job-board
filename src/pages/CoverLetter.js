@@ -21,8 +21,8 @@ export default function CoverLetter() {
   const prefill   = state?.job;
 
   const [form, setForm] = useState({
-    userName:       'Ankit Kumar',
-    userSkills:     'React, Node.js, JavaScript, MySQL, MongoDB, Python',
+    userName:       '',
+    userSkills:     '',
     jobTitle:       prefill?.title                        || '',
     company:        prefill?.company?.display_name        || '',
     jobDescription: prefill?.description                  || '',
@@ -45,11 +45,11 @@ export default function CoverLetter() {
     setLoading(true);
     
    try {
-      const promptText = `Write a professional cover letter for the position of ${form.jobTitle} at ${form.company}.
+     const promptText = `Write a professional cover letter for the position of ${form.jobTitle} at ${form.company}.
 
 Candidate Information:
-- Candidate Name: ${form.name || 'Ankit Kumar'}
-- Key Skills: ${form.skills || 'Not specified'}
+- Candidate Name: ${form.userName || 'The Candidate'}
+- Key Skills: ${form.userSkills || 'Not specified'}
 - Job Description / Requirements: ${form.jobDescription || 'Not specified'}
 
 STRICT FORMATTING RULES:
@@ -59,7 +59,7 @@ STRICT FORMATTING RULES:
 4. Start directly with "Dear Hiring Manager,".
 5. End directly with:
 Sincerely,
-${form.name || 'Ankit Kumar'}`;
+${form.userName || 'The Candidate'}`;
 
       const result = await generateCoverLetter(promptText);
       setLetter(result);

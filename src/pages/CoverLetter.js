@@ -44,16 +44,26 @@ export default function CoverLetter() {
     setLetter(''); 
     setLoading(true);
     
-    try {
-      const promptText = `Write a professional cover letter for the position of ${form.jobTitle} at ${form.company}. 
-      My relevant skills are: ${form.skills || 'Not specified'}. 
-      My experience includes: ${form.experience || 'Not specified'}.
-      Keep it professional, concise, and engaging.`;
+   try {
+      const promptText = `Write a professional cover letter for the position of ${form.jobTitle} at ${form.company}.
+
+Candidate Information:
+- Candidate Name: ${form.name || 'Ankit Kumar'}
+- Key Skills: ${form.skills || 'Not specified'}
+- Job Description / Requirements: ${form.jobDescription || 'Not specified'}
+
+STRICT FORMATTING RULES:
+1. Candidate Name MUST be explicitly used. Do NOT write "[Your Name]" anywhere.
+2. Keep it under 150 words total (short and punchy).
+3. Do NOT include any placeholder brackets like [Your Address], [Phone], [Email], or [Date] at the top.
+4. Start directly with "Dear Hiring Manager,".
+5. End directly with:
+Sincerely,
+${form.name || 'Ankit Kumar'}`;
 
       const result = await generateCoverLetter(promptText);
       setLetter(result);
     } catch (err) {
-      // THIS WILL NOW SHOW YOU THE EXACT CAUSE OF THE FAILURE ON SCREEN
       setError(`Error: ${err.message}`);
     } finally {
       setLoading(false);

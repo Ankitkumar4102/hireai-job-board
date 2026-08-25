@@ -9,8 +9,7 @@
 }
 .hero-glow {
   position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 90% 60% at 50% -5%, rgba(124,106,255,.14) 0%, transparent 65%);
-}
+background: radial-gradient(ellipse 90% 60% at 50% -5%, rgba(37, 99, 235, 0.15) 0%, transparent 65%);}
 .hero-badge {
  /* Use your actual class name here! */
   display: inline-flex;
@@ -32,7 +31,7 @@
  /* Use your actual class name here! */
   background: none;
   color: #2563eb; /* Professional solid blue */
-  -webkit-text-fill-color: #2563eb; 
+  -webkit-text-fill-color: var(--primary); 
   text-shadow: none;
 }
 .hero-sub { font-size: 1.05rem; color: var(--t2); line-height: 1.7; max-width: 440px; }

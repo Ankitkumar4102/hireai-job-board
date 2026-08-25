@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Zap, Briefcase, Bookmark, FileText, Search, X, Menu } from 'lucide-react';
+import { Briefcase, Code, Bookmark, FileText, Search, X, Menu } from 'lucide-react';
 import { suggestCities } from '../utils/api';
 import './Navbar.css';
 

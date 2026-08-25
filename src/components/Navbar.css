@@ -18,15 +18,24 @@
 
 /* Logo */
 .nb-logo {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 1.2rem; font-weight: 800; letter-spacing: -.03em;
-  flex-shrink: 0; user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #0f172a; /* Dark slate for the 'HireAI' text */
+  text-decoration: none;
 }
 .nb-logo-icon {
-  width: 32px; height: 32px; border-radius: 9px;
-  background: linear-gradient(135deg, var(--violet), #b06aff);
-  display: flex; align-items: center; justify-content: center;
-  color: #fff; box-shadow: 0 4px 14px rgba(124,106,255,.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2563eb; /* Solid professional blue background */
+  color: #ffffff; /* Crisp white icon */
+  width: 34px;
+  height: 34px;
+  border-radius: 8px; /* Clean, slightly rounded square */
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
 }
 
 /* Desktop links */

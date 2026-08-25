@@ -2,34 +2,64 @@
 
 /* LIGHT MODE (Default) */
 :root {
+  /* 1. New Modern Theme Variables */
   --bg-main: #f8fafc;
-  --bg-card: var(--bg-card);
+  --bg-card: #ffffff;
   --text-main: #0f172a;
   --text-muted: #475569;
   --border: #e2e8f0;
   --primary: #2563eb;
   --primary-hover: #eff6ff;
   --glass-bg: rgba(255, 255, 255, 0.95);
+
+  /* 2. Legacy Template Support (Fixes Home, Jobs, etc.) */
+  --bg1: var(--bg-main);
+  --bg2: var(--bg-card);
+  --glass: var(--bg-card);
+  --glass-md: var(--bg-main);
+  --glass-hover: var(--primary-hover);
+  --t1: var(--text-main);
+  --t2: var(--text-muted);
+  --t3: #94a3b8;
+  --border-md: var(--border);
+  --violet: var(--primary);
+  --violet2: var(--primary);
 }
 
 /* DARK MODE */
 [data-theme='dark'] {
+  /* 1. New Modern Theme Variables */
   --bg-main: #07080f;
   --bg-card: #12141d;
-  --text-main: var(--bg-card);
+  --text-main: #ffffff;
   --text-muted: #94a3b8;
   --border: #1e293b;
   --primary: #3b82f6;
   --primary-hover: rgba(59, 130, 246, 0.1);
   --glass-bg: rgba(7, 8, 15, 0.85);
+
+  /* 2. Legacy Template Support (Fixes Home, Jobs, etc.) */
+  --bg1: var(--bg-main);
+  --bg2: var(--bg-card);
+  --glass: var(--bg-card);
+  --glass-md: var(--bg-main);
+  --glass-hover: var(--primary-hover);
+  --t1: var(--text-main);
+  --t2: var(--text-muted);
+  --t3: #475569;
+  --border-md: var(--border);
+  --violet: var(--primary);
+  --violet2: var(--primary);
 }
 
+/* Global Body Styles */
 body {
   background-color: var(--bg-main);
   color: var(--text-main);
   transition: background-color 0.3s ease, color 0.3s ease;
   margin: 0;
   font-family: 'Plus Jakarta Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 html { scroll-behavior: smooth; }

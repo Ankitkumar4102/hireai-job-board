@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Briefcase, Terminal, Bookmark, FileText, Search, X, Menu } from 'lucide-react';
+import { Briefcase, Hexagon, Bookmark, FileText, Search, X, Menu } from 'lucide-react';
 import { suggestCities } from '../utils/api';
 import './Navbar.css';
 
@@ -36,8 +36,8 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link to="/" className="nb-logo">
-          <span className="nb-logo-icon"><Terminal size={18}/></span>
-          <span>HireAI</span>
+         <Hexagon className="nb-logo-icon" size={28} strokeWidth={2.5} />
+         <span className="nb-logo-text">HireAI</span>
         </Link>
 
         {/* Desktop links */}

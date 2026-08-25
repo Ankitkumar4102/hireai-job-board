@@ -80,11 +80,11 @@ ${form.userName || 'The Candidate'}`;
       <div className="cl-inner">
 
         {/* Hero */}
-        <div className="cl-hero fade-up">
-          <span className="cl-badge"><Zap size={13}/> AI Cover Letter Generator</span>
-          <h1 className="cl-h1">Land the Interview<br/><span className="cl-grad">in 30 Seconds</span></h1>
-          <p className="cl-sub">Paste the job details, click Generate — done.</p>
-        </div>
+       <div className="cl-hero fade-up">
+       <span className="cl-badge"><Zap size={13}/> Developer Tools</span>
+       <h1 className="cl-h1">Generate Tailored<br/><span className="cl-grad">Cover Letters</span></h1>
+       <p className="cl-sub">Enter the job requirements below to generate a formatted response.</p>
+       </div>
 
         {/* Two-col layout */}
         <div className="cl-layout fade-up" style={{ animationDelay:'80ms' }}>

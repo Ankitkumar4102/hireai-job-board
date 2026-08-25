@@ -24,7 +24,6 @@
   --glass-bg: rgba(7, 8, 15, 0.85);
 }
 
-/* Global Body Styles */
 body {
   background-color: var(--bg-main);
   color: var(--text-main);

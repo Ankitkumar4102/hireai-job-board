@@ -2,39 +2,40 @@
 
 :root {
   /* Backgrounds */
-  --bg:       #07080f;
-  --bg2:      #0e0f1a;
-  --bg3:      #161724;
-  --bg4:      #1d1e2e;
+  --bg1: #f8fafc; /* Main page background */
+  --bg2: #ffffff; /* Card backgrounds */
+  
+  /* Text Colors */
+  --t1: #0f172a; /* Main heading text */
+  --t2: #475569; /* Paragraph text */
+  --t3: #94a3b8; /* Muted/Placeholder text */
+  
+  /* Borders and UI elements */
+  --border: #e2e8f0; 
+  --glass: #ffffff; 
+  --glass-md: #f1f5f9;
+  
+  /* Brand Colors (Swapped from Neon Violet to Professional Blue) */
+  --violet: #2563eb; 
+  --violet2: #1d4ed8; 
+  --green: #16a34a;
+  --rose: #ef4444;
+  
+  /* Corner Radiuses for a sharper, hand-coded look */
+  --radius: 6px;
+  --radius-xl: 12px;
+  
+  /* Font */
+  --font: 'Plus Jakarta Sans', sans-serif;
+}
 
-  /* Glass */
-  --glass:       rgba(255,255,255,0.03);
-  --glass-md:    rgba(255,255,255,0.055);
-  --glass-hover: rgba(255,255,255,0.07);
-  --border:      rgba(255,255,255,0.07);
-  --border-md:   rgba(255,255,255,0.11);
-
-  /* Accents */
-  --violet:  #7c6aff;
-  --violet2: #a598ff;
-  --cyan:    #22d3ee;
-  --green:   #4ade80;
-  --amber:   #fbbf24;
-  --rose:    #fb7185;
-  --indigo:  #818cf8;
-
-  /* Text */
-  --t1: #f1f2ff;
-  --t2: #9499c0;
-  --t3: #555878;
-
-  /* Misc */
-  --radius:    14px;
-  --radius-lg: 22px;
-  --radius-xl: 28px;
-  --shadow:    0 8px 40px rgba(0,0,0,0.45);
-  --font:      'Plus Jakarta Sans', sans-serif;
-  --mono:      'Fira Code', monospace;
+body {
+  background-color: var(--bg1);
+  color: var(--t1);
+  font-family: var(--font);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
 }
 
 html { scroll-behavior: smooth; }

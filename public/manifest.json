@@ -1,0 +1,8 @@
+{
+  "short_name": "HireAI",
+  "name": "HireAI Job Board & Career Assistant",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#07080f",
+  "background_color": "#07080f"
+}

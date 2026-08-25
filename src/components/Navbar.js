@@ -36,7 +36,7 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link to="/" className="nb-logo">
-          <span className="nb-logo-icon"><Zap size={18}/></span>
+          <span className="nb-logo-icon"><Code size={18}/></span>
           <span>HireAI</span>
         </Link>
 

@@ -3,7 +3,7 @@
 /* LIGHT MODE (Default) */
 :root {
   --bg-main: #f8fafc;
-  --bg-card: #ffffff;
+  --bg-card: var(--bg-card);
   --text-main: #0f172a;
   --text-muted: #475569;
   --border: #e2e8f0;
@@ -16,7 +16,7 @@
 [data-theme='dark'] {
   --bg-main: #07080f;
   --bg-card: #12141d;
-  --text-main: #ffffff;
+  --text-main: var(--bg-card);
   --text-muted: #94a3b8;
   --border: #1e293b;
   --primary: #3b82f6;

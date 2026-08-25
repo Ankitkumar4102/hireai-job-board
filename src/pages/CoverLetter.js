@@ -93,10 +93,10 @@ ${form.userName || 'The Candidate'}`;
           <div className="cl-form">
             <div className="cl-form-head"><FileText size={17}/> Your Details</div>
 
-            <FIELD label="Your Name"   name="userName"       value={form.userName}       onChange={onChange} placeholder="Ankit Kumar"/>
-            <FIELD label="Your Skills" name="userSkills"     value={form.userSkills}     onChange={onChange} placeholder="React, Node.js, MySQL…"/>
-            <FIELD label="Job Title ✱" name="jobTitle"       value={form.jobTitle}       onChange={onChange} placeholder="Senior React Developer"/>
-            <FIELD label="Company ✱"   name="company"        value={form.company}        onChange={onChange} placeholder="Razorpay"/>
+            <FIELD label="Your Name"   name="userName"       value={form.userName}       onChange={onChange} placeholder="e.g. Ankit Kumar"/>
+            <FIELD label="Your Skills" name="userSkills"     value={form.userSkills}     onChange={onChange} placeholder="e.g. React, Node.js, MySQL…"/>
+            <FIELD label="Job Title ✱" name="jobTitle"       value={form.jobTitle}       onChange={onChange} placeholder="e.g. Senior React Developer"/>
+            <FIELD label="Company ✱"   name="company"        value={form.company}        onChange={onChange} placeholder="e.g. Razorpay"/>
             <FIELD label="Job Description (optional — paste for best results)"
                    name="jobDescription" value={form.jobDescription} onChange={onChange}
                    placeholder="Paste the job description here…"

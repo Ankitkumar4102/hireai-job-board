@@ -1,16 +1,16 @@
-/* Base Navbar - Crisp White */
+/* Base Navbar - Uses Theme Variables */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: #ffffff; 
+  background-color: var(--bg-card);
   border-bottom: 1px solid transparent; 
   transition: all 0.2s ease-in-out;
 }
 .navbar.scrolled {
-  background-color: rgba(255, 255, 255, 0.95); 
+  background-color: var(--glass-bg); 
   backdrop-filter: blur(8px); 
-  border-bottom: 1px solid #e2e8f0; 
+  border-bottom: 1px solid var(--border); 
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); 
 }
 
@@ -32,13 +32,13 @@
   opacity: 0.8;
 }
 .nb-logo-icon {
-  color: #2563eb; 
-  fill: #eff6ff;  
+  color: var(--primary); 
+  fill: var(--primary-hover);  
 }
 .nb-logo-text {
   font-weight: 800;
   font-size: 1.4rem;
-  color: #0f172a; 
+  color: var(--text-main); 
   letter-spacing: -0.04em; 
 }
 
@@ -47,44 +47,44 @@
 .nb-link {
   display: flex; align-items: center; gap: 6px;
   padding: 6px 13px; border-radius: 9px;
-  color: #475569; /* Slate gray text */
+  color: var(--text-muted);
   font-size: .85rem; font-weight: 500;
   transition: all .2s; white-space: nowrap;
   text-decoration: none;
 }
-.nb-link:hover  { color: #0f172a; background: #f8fafc; }
-.nb-link.active { color: #2563eb; background: #eff6ff; }
+.nb-link:hover  { color: var(--text-main); background: var(--bg-main); }
+.nb-link.active { color: var(--primary); background: var(--primary-hover); }
 
 /* Search */
 .nb-search-wrap { position: relative; margin-left: auto; }
 .nb-search {
   display: flex; align-items: center; gap: 8px;
-  background: #f8fafc; border: 1px solid #e2e8f0;
+  background: var(--bg-main); border: 1px solid var(--border);
   border-radius: 10px; padding: 7px 12px;
   transition: all .2s; width: 210px;
 }
 .nb-search:focus-within {
-  border-color: #2563eb;
+  border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
   width: 250px;
 }
-.nb-si { color: #94a3b8; flex-shrink: 0; }
+.nb-si { color: var(--text-muted); flex-shrink: 0; }
 .nb-search input {
   background: none; border: none; outline: none;
-  color: #0f172a; font-size: .875rem; width: 100%;
+  color: var(--text-main); font-size: .875rem; width: 100%;
 }
-.nb-search input::placeholder { color: #94a3b8; }
+.nb-search input::placeholder { color: var(--text-muted); }
 .nb-search button { 
-  color: #94a3b8; display: flex; padding: 2px; 
+  color: var(--text-muted); display: flex; padding: 2px; 
   border-radius: 4px; transition: color .2s; 
   background: none; border: none; cursor: pointer; 
 }
-.nb-search button:hover { color: #0f172a; }
+.nb-search button:hover { color: var(--text-main); }
 
 /* Search Suggestions Dropdown */
 .nb-sugs {
   position: absolute; top: calc(100% + 6px); left: 0; right: 0;
-  background: #ffffff; border: 1px solid #e2e8f0;
+  background: var(--bg-card); border: 1px solid var(--border);
   border-radius: 12px; list-style: none; overflow: hidden;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); z-index: 300;
   margin: 0; padding: 0;
@@ -93,19 +93,38 @@
 .nb-sugs li {
   display: flex; align-items: center; gap: 8px;
   padding: 9px 14px; cursor: pointer;
-  color: #475569; font-size: .875rem;
+  color: var(--text-muted); font-size: .875rem;
   transition: background .15s;
 }
-.nb-sugs li:hover { background: #f8fafc; color: #0f172a; }
+.nb-sugs li:hover { background: var(--bg-main); color: var(--text-main); }
 
 /* Mobile */
-.nb-menu-btn { display: none; color: #475569; padding: 6px; background: none; border: none; cursor: pointer; }
+.nb-menu-btn { display: none; color: var(--text-muted); padding: 6px; background: none; border: none; cursor: pointer; }
 .nb-mobile {
-  background: #ffffff; border-top: 1px solid #e2e8f0;
+  background: var(--bg-card); border-top: 1px solid var(--border);
   display: flex; flex-direction: column; padding: .75rem 1.25rem;
   gap: 2px; animation: slideDown .18s ease;
 }
 .nb-mobile .nb-link { padding: 10px 12px; }
+
+/* Theme Toggle Button */
+.nb-theme-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1rem;
+  transition: all 0.2s;
+}
+.nb-theme-btn:hover {
+  background: var(--primary-hover);
+  color: var(--primary);
+}
 
 @media (max-width: 768px) {
   .nb-links { display: none; }

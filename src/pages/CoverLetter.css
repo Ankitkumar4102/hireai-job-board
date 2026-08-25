@@ -1,5 +1,5 @@
 .cl-page  { 
-  background-color: #f8fafc; /* Soft, clean background */
+  background-color: var(--bg-main); /* Soft, clean background */
   color: #0f172a; /* Dark slate text */ 
   min-height: 100vh;
   padding: 2rem;
@@ -21,7 +21,7 @@
 }
 .cl-grad {
   background: none;
-  -webkit-text-fill-color: #2563eb; /* Professional blue */
+  -webkit-text-fill-color: var(--primary); /* Professional blue */
   color: #2563eb;
 }
 .cl-sub { color: #64748b; font-size: 1rem; }

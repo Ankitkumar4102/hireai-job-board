@@ -118,3 +118,8 @@ img { display: block; }
   animation: shimmer 1.5s infinite;
   border-radius: var(--radius);
 }
+/* Force all page wrappers to respect the theme background */
+.home, .home-page, .hero, .page-container, main {
+  background-color: transparent !important;
+  color: var(--text-main);
+}

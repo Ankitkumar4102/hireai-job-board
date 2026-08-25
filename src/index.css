@@ -1,41 +1,36 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* LIGHT MODE (Default) */
 :root {
-  /* Backgrounds */
-  --bg1: #f8fafc; /* Main page background */
-  --bg2: #ffffff; /* Card backgrounds */
-  
-  /* Text Colors */
-  --t1: #0f172a; /* Main heading text */
-  --t2: #475569; /* Paragraph text */
-  --t3: #94a3b8; /* Muted/Placeholder text */
-  
-  /* Borders and UI elements */
-  --border: #e2e8f0; 
-  --glass: #ffffff; 
-  --glass-md: #f1f5f9;
-  
-  /* Brand Colors (Swapped from Neon Violet to Professional Blue) */
-  --violet: #2563eb; 
-  --violet2: #1d4ed8; 
-  --green: #16a34a;
-  --rose: #ef4444;
-  
-  /* Corner Radiuses for a sharper, hand-coded look */
-  --radius: 6px;
-  --radius-xl: 12px;
-  
-  /* Font */
-  --font: 'Plus Jakarta Sans', sans-serif;
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --border: #e2e8f0;
+  --primary: #2563eb;
+  --primary-hover: #eff6ff;
+  --glass-bg: rgba(255, 255, 255, 0.95);
 }
 
+/* DARK MODE */
+[data-theme='dark'] {
+  --bg-main: #07080f;
+  --bg-card: #12141d;
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  --border: #1e293b;
+  --primary: #3b82f6;
+  --primary-hover: rgba(59, 130, 246, 0.1);
+  --glass-bg: rgba(7, 8, 15, 0.85);
+}
+
+/* Global Body Styles */
 body {
-  background-color: var(--bg1);
-  color: var(--t1);
-  font-family: var(--font);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
   margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 html { scroll-behavior: smooth; }

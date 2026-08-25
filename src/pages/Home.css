@@ -12,18 +12,28 @@
   background: radial-gradient(ellipse 90% 60% at 50% -5%, rgba(124,106,255,.14) 0%, transparent 65%);
 }
 .hero-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: rgba(124,106,255,.1); border: 1px solid rgba(124,106,255,.25);
-  border-radius: 20px; padding: 5px 14px;
-  font-size: .78rem; font-weight: 700; color: var(--violet2); letter-spacing: .04em;
+ /* Use your actual class name here! */
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #eff6ff; 
+  border: 1px solid #bfdbfe;
+  border-radius: 20px; 
+  padding: 6px 16px;
+  font-size: 0.85rem; 
+  font-weight: 700; 
+  color: #2563eb;
 }
 .hero-h1 {
   font-size: clamp(2.6rem, 7vw, 4.4rem); font-weight: 800;
   line-height: 1.08; letter-spacing: -.04em; color: var(--t1);
 }
 .hero-grad {
-  background: linear-gradient(120deg, var(--violet), #c084fc, var(--cyan));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+ /* Use your actual class name here! */
+  background: none;
+  color: #2563eb; /* Professional solid blue */
+  -webkit-text-fill-color: #2563eb; 
+  text-shadow: none;
 }
 .hero-sub { font-size: 1.05rem; color: var(--t2); line-height: 1.7; max-width: 440px; }
 

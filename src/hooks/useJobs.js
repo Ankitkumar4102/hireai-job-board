@@ -31,14 +31,18 @@ export function useJobs() {
       let formattedJobs = data.results.map(job => {
         const companyName = job.company?.display_name || 'Top Company';
         
-        // Strict Adzuna salary extraction (no fake estimates)
+        // Proper Adzuna salary extraction
         let salaryText = 'Salary not listed';
         if (job.salary_min && job.salary_max) {
-          salaryText = `₹${(job.salary_min / 100000).toFixed(1)}L - ₹${(job.salary_max / 100000).toFixed(1)}L/yr`;
+          const minLakhs = (job.salary_min / 100000).toFixed(1);
+          const maxLakhs = (job.salary_max / 100000).toFixed(1);
+          salaryText = `₹${minLakhs}L - ₹${maxLakhs}L/yr`;
         } else if (job.salary_min) {
-          salaryText = `₹${(job.salary_min / 100000).toFixed(1)}L+/yr`;
+          const minLakhs = (job.salary_min / 100000).toFixed(1);
+          salaryText = `₹${minLakhs}L+/yr`;
         } else if (job.salary_max) {
-          salaryText = `Up to ₹${(job.salary_max / 100000).toFixed(1)}L/yr`;
+          const maxLakhs = (job.salary_max / 100000).toFixed(1);
+          salaryText = `Up to ₹${maxLakhs}L/yr`;
         }
 
         const postedDate = job.created ? new Date(job.created) : new Date();

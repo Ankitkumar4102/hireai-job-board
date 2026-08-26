@@ -1,66 +1,58 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export function useJobs() {
-  const [allJobs, setAllJobs] = useState([]); // Stores all jobs from database
-  const [jobs, setJobs] = useState([]);       // Stores filtered jobs
+  const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [total, setTotal] = useState(0);
 
-  // 1. Fetch real jobs from your new Node.js backend
-  useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        setLoading(true);
-        // Call your backend API
-        const response = await fetch('http://localhost:5000/api/jobs');
-        if (!response.ok) throw new Error('Failed to fetch live jobs from server');
-        
-        const data = await response.json();
+  const [filters, setFilters] = useState({
+    keyword: 'developer',
+    location: 'india'
+  });
 
-        // MongoDB uses '_id', but React usually expects 'id'. 
-        // This maps it so your JobCard component doesn't break!
-        const formattedData = data.map(job => ({
-          ...job,
-          id: job._id 
-        }));
+  const fetchJobs = useCallback(async (currentFilters) => {
+    try {
+      setLoading(true);
+      setError(null);
 
-        setAllJobs(formattedData);
-        setJobs(formattedData);
-        setTotal(formattedData.length);
-        setError(null);
-      } catch (err) {
-        console.error("Fetch Error:", err);
-        setError("Could not connect to the live job database.");
-      } finally {
-        setLoading(false);
-      }
-    };
+      const appId = process.env.REACT_APP_ADZUNA_APP_ID;
+      const appKey = process.env.REACT_APP_ADZUNA_API_KEY;
 
-    fetchJobs();
+      const url = `https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=${appId}&app_key=${appKey}&what=${encodeURIComponent(currentFilters.keyword)}&where=${encodeURIComponent(currentFilters.location)}&results_per_page=20`;
+
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Failed to fetch live jobs from Adzuna');
+
+      const data = await response.json();
+
+      const formattedJobs = data.results.map(job => ({
+        id: job.id,
+        title: job.title,
+        company: job.company.display_name,
+        location: job.location.display_name,
+        salary: job.salary_min ? `₹${(job.salary_min / 100000).toFixed(1)}L/yr` : 'Salary not listed',
+        description: job.description,
+        tags: [currentFilters.keyword],
+        postedAt: job.created
+      }));
+
+      setJobs(formattedJobs);
+      setTotal(data.count || formattedJobs.length);
+    } catch (err) {
+      console.error("Adzuna Fetch Error:", err);
+      setError("Could not load live jobs. Please check your network or API keys.");
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  // 2. Keep your frontend search/filtering working
-  const updateFilters = ({ keyword = '', location = '' }) => {
-    let filtered = allJobs;
+  useEffect(() => {
+    fetchJobs(filters);
+  }, [filters, fetchJobs]);
 
-    if (keyword) {
-      const lowerKey = keyword.toLowerCase();
-      filtered = filtered.filter(job => 
-        job.title?.toLowerCase().includes(lowerKey) || 
-        job.company?.toLowerCase().includes(lowerKey) ||
-        job.tags?.some(tag => tag.toLowerCase().includes(lowerKey))
-      );
-    }
-
-    if (location) {
-      const lowerLoc = location.toLowerCase();
-      filtered = filtered.filter(job => 
-        job.location?.toLowerCase().includes(lowerLoc)
-      );
-    }
-
-    setJobs(filtered);
+  const updateFilters = (newFilters) => {
+    setFilters(prev => ({ ...prev, ...newFilters }));
   };
 
   return { jobs, loading, error, total, updateFilters };

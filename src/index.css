@@ -118,8 +118,23 @@ img { display: block; }
   animation: shimmer 1.5s infinite;
   border-radius: var(--radius);
 }
-/* Force all page wrappers to respect the theme background */
-.home, .home-page, .hero, .page-container, main {
+/* --- GLOBAL THEME OVERRIDES --- */
+body, #root, main {
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+}
+
+/* Force specific page wrappers to stop using white backgrounds */
+.home, .home-page, .saved-page, .saved-container {
   background-color: transparent !important;
+}
+
+/* Fix main headings that are stuck on black text */
+h1, h2, h3 {
   color: var(--text-main);
+}
+
+/* Fix subtext that is stuck on dark gray */
+p, .sub-title, .description {
+  color: var(--text-muted);
 }

@@ -8,7 +8,8 @@ export function useJobs() {
 
   const [filters, setFilters] = useState({
     keyword: 'developer',
-    location: 'india'
+    location: 'india',
+    sortBy: 'date' // Sort by newest date by default
   });
 
   const fetchJobs = useCallback(async (currentFilters) => {
@@ -19,23 +20,45 @@ export function useJobs() {
       const appId = process.env.REACT_APP_ADZUNA_APP_ID;
       const appKey = process.env.REACT_APP_ADZUNA_API_KEY;
 
-      const url = `https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=${appId}&app_key=${appKey}&what=${encodeURIComponent(currentFilters.keyword)}&where=${encodeURIComponent(currentFilters.location)}&results_per_page=20`;
+      const url = `https://api.adzuna.com/v1/api/jobs/in/search/1?app_id=${appId}&app_key=${appKey}&what=${encodeURIComponent(currentFilters.keyword)}&where=${encodeURIComponent(currentFilters.location)}&results_per_page=30`;
 
       const response = await fetch(url);
       if (!response.ok) throw new Error('Failed to fetch live jobs from Adzuna');
 
       const data = await response.json();
 
-      const formattedJobs = data.results.map(job => ({
-        id: job.id,
-        title: job.title,
-        company: job.company.display_name,
-        location: job.location.display_name,
-        salary: job.salary_min ? `₹${(job.salary_min / 100000).toFixed(1)}L/yr` : 'Salary not listed',
-        description: job.description,
-        tags: [currentFilters.keyword],
-        postedAt: job.created
-      }));
+      let formattedJobs = data.results.map(job => {
+        // Fix company name extraction safely
+        const companyName = job.company?.display_name || job.company || 'Top Company';
+        
+        // Fix salary display
+        let salaryText = 'Salary not listed';
+        if (job.salary_min && job.salary_max) {
+          salaryText = `₹${Math.round(job.salary_min / 100000)}L - ₹${Math.round(job.salary_max / 100000)}L/yr`;
+        } else if (job.salary_min) {
+          salaryText = `₹${Math.round(job.salary_min / 100000)}L+/yr`;
+        }
+
+        // Fix date formatting calculation
+        const postedDate = job.created ? new Date(job.created) : new Date();
+        const diffDays = Math.floor((new Date() - postedDate) / (1000 * 60 * 60 * 24));
+        const timeAgo = diffDays === 0 ? 'Today' : `${diffDays}d ago`;
+
+        return {
+          id: job.id,
+          title: job.title,
+          company: companyName,
+          location: job.location?.display_name || 'India',
+          salary: salaryText,
+          description: job.description,
+          tags: [currentFilters.keyword],
+          postedAt: postedDate,
+          timeAgo: timeAgo
+        };
+      });
+
+      // Sort by newest date by default
+      formattedJobs.sort((a, b) => b.postedAt - a.postedAt);
 
       setJobs(formattedJobs);
       setTotal(data.count || formattedJobs.length);

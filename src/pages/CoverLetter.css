@@ -1,6 +1,6 @@
 .cl-page  { 
-  background-color: var(--bg-main); /* Soft, clean background */
-  color: #0f172a; /* Dark slate text */ 
+  background-color: var(--bg-main); 
+  color: var(--text-main); 
   min-height: 100vh;
   padding: 2rem;
 }
@@ -11,67 +11,72 @@
 .cl-hero { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
 .cl-badge {
   display: inline-flex; align-items: center; gap: 6px;
-  background: #eff6ff; border: 1px solid #bfdbfe; /* Soft blue badge */
+  background: var(--primary-hover); 
+  border: 1px solid var(--border); 
   border-radius: 20px; padding: 5px 14px;
-  font-size: .78rem; font-weight: 700; color: #2563eb; letter-spacing: .04em;
+  font-size: .78rem; font-weight: 700; color: var(--primary); letter-spacing: .04em;
 }
 .cl-h1 {
   font-size: clamp(2.2rem, 5.5vw, 3.5rem); font-weight: 800;
   letter-spacing: -.04em; line-height: 1.1;
+  color: var(--text-main);
 }
 .cl-grad {
   background: none;
-  -webkit-text-fill-color: var(--primary); /* Professional blue */
-  color: #2563eb;
+  -webkit-text-fill-color: var(--primary); 
+  color: var(--primary);
 }
-.cl-sub { color: #64748b; font-size: 1rem; }
+.cl-sub { color: var(--text-muted); font-size: 1rem; }
 
 /* Layout */
 .cl-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; align-items: start; }
 
 /* Form card */
 .cl-form {
-  background: var(--bg-card); border: 1px solid #e2e8f0; /* Crisp white card */
+  background: var(--bg-card); 
+  border: 1px solid var(--border); 
   border-radius: 12px; padding: 1.75rem;
   display: flex; flex-direction: column; gap: 1.1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 .cl-form-head {
   display: flex; align-items: center; gap: 8px;
-  font-size: 1rem; font-weight: 700; color: #0f172a;
-  padding-bottom: .75rem; border-bottom: 1px solid #e2e8f0;
+  font-size: 1rem; font-weight: 700; color: var(--text-main);
+  padding-bottom: .75rem; border-bottom: 1px solid var(--border);
 }
 .cl-field { display: flex; flex-direction: column; gap: 6px; }
 .cl-field label {
-  font-size: .75rem; font-weight: 700; color: #475569;
+  font-size: .75rem; font-weight: 700; color: var(--text-muted);
   text-transform: uppercase; letter-spacing: .06em;
 }
 
 /* Merged Developer Inputs */
 .cl-field input, .cl-field textarea {
   font-family: 'Fira Code', monospace;
-  background-color: var(--bg-card); 
-  border: 1px solid #cbd5e1;
+  background-color: var(--bg-main); 
+  border: 1px solid var(--border);
   border-radius: 6px; padding: 10px 14px;
-  color: #334155; font-size: .9rem; outline: none; resize: vertical;
+  color: var(--text-main); font-size: .9rem; outline: none; resize: vertical;
   transition: all .2s;
 }
 .cl-field input:focus, .cl-field textarea:focus { 
-  border-color: #2563eb; 
-  box-shadow: 0 0 0 3px rgba(37,99,235,.15); 
+  border-color: var(--primary); 
+  box-shadow: 0 0 0 3px var(--primary-hover); 
 }
-.cl-field input::placeholder, .cl-field textarea::placeholder { color: #94a3b8; }
+.cl-field input::placeholder, .cl-field textarea::placeholder { color: var(--text-muted); }
 
+/* Error State - Adjusted to be visible in dark mode */
 .cl-error {
-  background: #fef2f2; border: 1px solid #fecaca;
+  background: rgba(239, 68, 68, 0.1); 
+  border: 1px solid rgba(239, 68, 68, 0.3);
   border-radius: 6px; padding: 9px 13px;
   color: #ef4444; font-size: .84rem;
 }
 
 /* Fixed Generate Button */
 .cl-generate {
-  background: #2563eb; /* Solid blue base */
-  color: var(--bg-card);
+  background: var(--primary);
+  color: #ffffff; /* Button text stays white */
   border: none;
   border-radius: 6px;
   padding: 12px;
@@ -82,7 +87,6 @@
 }
 .cl-generate:hover:not(:disabled) { 
   transform: translateY(-2px);
-  background: #1d4ed8;
   box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3); 
 }
 .cl-generate:disabled { opacity: .6; cursor: not-allowed; transform: none; }
@@ -90,7 +94,8 @@
 
 /* Output Card */
 .cl-output {
-  background: var(--bg-card); border: 1px solid #e2e8f0;
+  background: var(--bg-card); 
+  border: 1px solid var(--border);
   border-radius: 12px; padding: 1.75rem;
   display: flex; flex-direction: column; gap: 1rem;
   min-height: 500px;
@@ -98,23 +103,23 @@
 }
 .cl-out-head {
   display: flex; justify-content: space-between; align-items: center;
-  font-size: 1rem; font-weight: 700; color: #0f172a;
-  padding-bottom: .75rem; border-bottom: 1px solid #e2e8f0;
+  font-size: 1rem; font-weight: 700; color: var(--text-main);
+  padding-bottom: .75rem; border-bottom: 1px solid var(--border);
 }
 .cl-copy {
   display: inline-flex; align-items: center; gap: 6px;
-  background: #f1f5f9; border: 1px solid #e2e8f0;
+  background: var(--bg-main); border: 1px solid var(--border);
   border-radius: 6px; padding: 5px 12px; cursor: pointer;
-  font-size: .8rem; font-weight: 600; color: #475569;
+  font-size: .8rem; font-weight: 600; color: var(--text-muted);
   transition: all .2s;
 }
-.cl-copy:hover { color: #16a34a; border-color: #bbf7d0; background: #f0fdf4; }
+.cl-copy:hover { color: #16a34a; border-color: rgba(22, 163, 74, 0.4); background: rgba(22, 163, 74, 0.1); }
 
 .cl-text {
   white-space: pre-wrap; word-break: break-word;
   font-size: .9rem;
-  color: #334155; line-height: 1.9;
-  background: #f8fafc; border: 1px solid #e2e8f0;
+  color: var(--text-main); line-height: 1.9;
+  background: var(--bg-main); border: 1px solid var(--border);
   border-radius: 6px; padding: 1.25rem; flex: 1;
   animation: fadeIn .4s ease;
 }
@@ -122,22 +127,22 @@
 .cl-placeholder {
   flex: 1; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  gap: .75rem; text-align: center; color: #94a3b8;
-  border: 2px dashed #cbd5e1; border-radius: 6px; padding: 3rem;
-  background: #f8fafc;
+  gap: .75rem; text-align: center; color: var(--text-muted);
+  border: 2px dashed var(--border); border-radius: 6px; padding: 3rem;
+  background: var(--bg-main);
 }
-.cl-placeholder p    { font-size: .9rem; color: #475569; font-weight: 600; }
+.cl-placeholder p    { font-size: .9rem; color: var(--text-main); font-weight: 600; }
 .cl-placeholder span { font-size: .78rem; }
 
 .cl-loading {
   flex: 1; display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  gap: 1.25rem; color: #475569;
+  gap: 1.25rem; color: var(--text-muted);
 }
 .cl-dots { display: flex; gap: 9px; }
 .cl-dot  {
   width: 10px; height: 10px; border-radius: 50%;
-  background: #2563eb;
+  background: var(--primary);
   animation: pulse 0.9s ease-in-out infinite;
 }
 

@@ -6,15 +6,34 @@ import './JobCard.css';
 
 export default function JobCard({ job, delay = 0 }) {
   const [saved, setSaved] = useState(() => isSaved(job.id));
-  const color = strColor(job.company?.display_name);
-  const init  = initials(job.company?.display_name);
-  const tags  = job.tags || [];
+
+  // Safely extract company name whether it's an object or a flat string
+  const companyName = typeof job.company === 'object' 
+    ? job.company?.display_name 
+    : job.company || 'Top Company';
+
+  // Safely extract location whether it's an object or a flat string
+  const locationName = typeof job.location === 'object'
+    ? job.location?.display_name
+    : job.location || 'India';
+
+  const color = strColor(companyName);
+  const init = initials(companyName);
+  const tags = job.tags || [];
 
   const handleSave = (e) => {
     e.preventDefault();
     toggleSaved(job);
     setSaved(s => !s);
   };
+
+  // Handle salary display securely
+  const displaySalary = job.salary && typeof job.salary === 'string' 
+    ? job.salary 
+    : fmtSalary(job.salary_min, job.salary_max);
+
+  // Handle timestamp display securely
+  const displayTime = job.timeAgo || timeAgo(job.created || job.postedAt);
 
   return (
     <div className="jcard fade-up" style={{ animationDelay: `${delay}ms` }}>
@@ -32,8 +51,8 @@ export default function JobCard({ job, delay = 0 }) {
       <Link to={`/job/${job.id}`} state={{ job }} className="jcard-body">
         <h3 className="jcard-title">{job.title}</h3>
         <div className="jcard-meta">
-          <span><Building2 size={13}/>{job.company?.display_name}</span>
-          <span><MapPin size={13}/>{job.location?.display_name}</span>
+          <span><Building2 size={13}/>{companyName}</span>
+          <span><MapPin size={13}/>{locationName}</span>
         </div>
         <p className="jcard-snippet">{job.description?.slice(0, 115)}…</p>
       </Link>
@@ -47,8 +66,12 @@ export default function JobCard({ job, delay = 0 }) {
 
       {/* footer */}
       <div className="jcard-foot">
-        <span className="jcard-salary"><IndianRupee size={13}/>{fmtSalary(job.salary_min, job.salary_max)}</span>
-        <span className="jcard-time"><Clock size={13}/>{timeAgo(job.created)}</span>
+        <span className="jcard-salary">
+          <IndianRupee size={13}/>{displaySalary}
+        </span>
+        <span className="jcard-time">
+          <Clock size={13}/>{displayTime}
+        </span>
       </div>
     </div>
   );

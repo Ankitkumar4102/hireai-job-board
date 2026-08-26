@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
-import { Search, MapPin, Zap, Briefcase, TrendingUp, X } from 'lucide-react';
+import { Search, MapPin, Zap, Briefcase, TrendingUp, X, Calendar } from 'lucide-react';
 import { useJobs } from '../hooks/useJobs';
 import JobCard from '../components/JobCard';
 import { SkeletonGrid } from '../components/Skeleton';
 import './Home.css';
 
 const FILTERS = [
-  { label:'All',        value:'' },
-  { label:'React',      value:'react' },
-  { label:'MERN',       value:'mern full stack' },
-  { label:'Next.js',    value:'nextjs' },
-  { label:'Node.js',    value:'nodejs' },
-  { label:'Python',     value:'python developer' },
-  { label:'Android',    value:'android developer' },
-  { label:'ML / AI',    value:'machine learning' },
-  { label:'DevOps',     value:'devops' },
+  { label:'All',       value:'' },
+  { label:'React',     value:'react' },
+  { label:'MERN',      value:'mern full stack' },
+  { label:'Next.js',   value:'nextjs' },
+  { label:'Node.js',   value:'nodejs' },
+  { label:'Python',    value:'python developer' },
+  { label:'Android',   value:'android developer' },
+  { label:'ML / AI',   value:'machine learning' },
+  { label:'DevOps',    value:'devops' },
 ];
 
 export default function Home() {
-  const { jobs, loading, error, total, updateFilters } = useJobs();
+  const { jobs, loading, error, total, page, updateFilters, nextPage, prevPage } = useJobs();
   const [keyword,  setKeyword]  = useState('');
   const [location, setLocation] = useState('');
   const [chip,     setChip]     = useState('');
+  const [dateFilter, setDateFilter] = useState('all');
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -31,6 +32,12 @@ export default function Home() {
   const handleChip = (v) => {
     setChip(v);
     updateFilters({ keyword: v || 'react developer' });
+  };
+
+  const handleDateChange = (e) => {
+    const val = e.target.value;
+    setDateFilter(val);
+    updateFilters({ dateFilter: val });
   };
 
   return (
@@ -105,13 +112,28 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Header row */}
-          <div className="results-head">
+          {/* Header row with Date Filter dropdown */}
+          <div className="results-head" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '15px' }}>
             <div>
               <h2 className="results-title">
                 {chip ? FILTERS.find(f=>f.value===chip)?.label : 'Developer'} Jobs
               </h2>
-              {!loading && <p className="results-count">{jobs.length} results</p>}
+              {!loading && <p className="results-count">{jobs.length} results shown on this page</p>}
+            </div>
+
+            {/* Date Filter Dropdown */}
+            <div style={{ display: 'flex', alignItems: 'center', background: '#111827', padding: '6px 12px', borderRadius: '8px', border: '1px solid #374151' }}>
+              <Calendar size={15} style={{ color: '#9ca3af', marginRight: '8px' }} />
+              <select 
+                value={dateFilter} 
+                onChange={handleDateChange}
+                style={{ background: 'transparent', color: '#fff', border: 'none', outline: 'none', cursor: 'pointer', fontSize: '14px' }}
+              >
+                <option value="all" style={{ background: '#1f2937' }}>All Time</option>
+                <option value="today" style={{ background: '#1f2937' }}>Last 24 Hours</option>
+                <option value="week" style={{ background: '#1f2937' }}>Past Week</option>
+                <option value="month" style={{ background: '#1f2937' }}>Past Month</option>
+              </select>
             </div>
           </div>
 
@@ -127,9 +149,31 @@ export default function Home() {
             <div className="empty">
               <Briefcase size={52}/>
               <h3>No jobs found</h3>
-              <p>Try a different keyword or location</p>
+              <p>Try a different keyword, location, or date filter</p>
             </div>
           )}
+
+          {/* Pagination Controls */}
+          {!loading && jobs.length > 0 && (
+            <div className="pagination-row" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '20px', marginTop: '40px' }}>
+              <button 
+                onClick={prevPage} 
+                disabled={page === 1}
+                className="sb-btn"
+                style={{ opacity: page === 1 ? 0.4 : 1, cursor: page === 1 ? 'not-allowed' : 'pointer' }}
+              >
+                Previous Page
+              </button>
+              <span style={{ color: '#fff', fontWeight: '600', fontSize: '15px' }}>Page {page}</span>
+              <button 
+                onClick={nextPage}
+                className="sb-btn"
+              >
+                Next Page
+              </button>
+            </div>
+          )}
+
         </div>
       </section>
     </main>

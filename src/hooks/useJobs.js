@@ -10,8 +10,7 @@ export function useJobs() {
   const [filters, setFilters] = useState({
     keyword: 'developer',
     location: 'india',
-    dateFilter: 'all', // 'today', 'week', 'month', 'all'
-    sortBy: 'date'     // 'date', 'salary'
+    dateFilter: 'all'
   });
 
   const fetchJobs = useCallback(async (currentFilters, currentPage) => {
@@ -32,12 +31,14 @@ export function useJobs() {
       let formattedJobs = data.results.map(job => {
         const companyName = job.company?.display_name || 'Top Company';
         
-        // Smart salary fallback so it rarely shows "not listed"
-        let salaryText = '₹6.0L - ₹12.0L/yr (Est.)';
+        // Strict Adzuna salary extraction (no fake estimates)
+        let salaryText = 'Salary not listed';
         if (job.salary_min && job.salary_max) {
-          salaryText = `₹${Math.round(job.salary_min / 100000)}L - ₹${Math.round(job.salary_max / 100000)}L/yr`;
+          salaryText = `₹${(job.salary_min / 100000).toFixed(1)}L - ₹${(job.salary_max / 100000).toFixed(1)}L/yr`;
         } else if (job.salary_min) {
-          salaryText = `₹${Math.round(job.salary_min / 100000)}L+/yr`;
+          salaryText = `₹${(job.salary_min / 100000).toFixed(1)}L+/yr`;
+        } else if (job.salary_max) {
+          salaryText = `Up to ₹${(job.salary_max / 100000).toFixed(1)}L/yr`;
         }
 
         const postedDate = job.created ? new Date(job.created) : new Date();
@@ -58,7 +59,7 @@ export function useJobs() {
         };
       });
 
-      // Apply Date Filter (e.g., last 7 days or last 30 days)
+      // Apply Date Filter
       if (currentFilters.dateFilter === 'today') {
         formattedJobs = formattedJobs.filter(j => j.diffDays === 0);
       } else if (currentFilters.dateFilter === 'week') {
@@ -85,7 +86,7 @@ export function useJobs() {
   }, [filters, page, fetchJobs]);
 
   const updateFilters = (newFilters) => {
-    setPage(1); // Reset to page 1 on search change
+    setPage(1);
     setFilters(prev => ({ ...prev, ...newFilters }));
   };
 

@@ -138,3 +138,35 @@ h1, h2, h3 {
 p, .sub-title, .description {
   color: var(--text-muted);
 }
+/* --- PREMIUM UI POLISH --- */
+
+/* 1. Custom Text Selection (Matches your brand blue) */
+::selection {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+/* 2. Custom Dark Mode Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* 3. Fix Chrome Autofill Bug (Prevents inputs from turning white) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--bg-main) inset !important;
+  -webkit-text-fill-color: var(--text-main) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

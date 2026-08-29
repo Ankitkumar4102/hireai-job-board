@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Building2, Clock, Bookmark, BookmarkCheck, IndianRupee } from 'lucide-react';
+import { MapPin, Building2, Clock, Bookmark, BookmarkCheck, IndianRupee, Briefcase } from 'lucide-react';
 import { timeAgo, fmtSalary, initials, strColor, toggleSaved, isSaved } from '../utils/helpers';
 import './JobCard.css';
 
@@ -35,6 +35,9 @@ export default function JobCard({ job, delay = 0 }) {
   // Handle timestamp display securely
   const displayTime = job.timeAgo || timeAgo(job.created || job.postedAt);
 
+  // Handle experience display securely
+  const displayExp = job.experience || 'Not specified';
+
   return (
     <div className="jcard fade-up" style={{ animationDelay: `${delay}ms` }}>
       {/* top row */}
@@ -53,6 +56,7 @@ export default function JobCard({ job, delay = 0 }) {
         <div className="jcard-meta">
           <span><Building2 size={13}/>{companyName}</span>
           <span><MapPin size={13}/>{locationName}</span>
+          <span><Briefcase size={13}/>{displayExp}</span>
         </div>
         <p className="jcard-snippet">{job.description?.slice(0, 115)}…</p>
       </Link>

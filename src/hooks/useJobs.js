@@ -31,7 +31,6 @@ export function useJobs() {
       let formattedJobs = data.results.map(job => {
         const companyName = job.company?.display_name || 'Top Company';
         
-        // Comprehensive salary extraction from Adzuna
         let salaryText = 'Salary not listed';
         if (job.salary_min && job.salary_max) {
           salaryText = `₹${(job.salary_min / 100000).toFixed(1)}L - ₹${(job.salary_max / 100000).toFixed(1)}L/yr`;
@@ -39,6 +38,20 @@ export function useJobs() {
           salaryText = `₹${(job.salary_min / 100000).toFixed(1)}L+/yr`;
         } else if (job.salary_max) {
           salaryText = `Up to ₹${(job.salary_max / 100000).toFixed(1)}L/yr`;
+        }
+
+        // Smart experience extraction from description or title
+        let experienceText = 'Not specified';
+        const desc = job.description || '';
+        const titleText = job.title || '';
+        const combinedText = `${titleText} ${desc}`;
+        
+        const expMatch = combinedText.match(/(\d+[\s\-]*(?:to|\-)?[\s\d]*)\s*(?:years?|yrs?)\s*(?:of)?\s*experience/i) ||
+                         combinedText.match(/experience\s*(?:required|of)?\s*:?\s*(\d+[\s\-]*(?:to|\-)?[\s\d]*)\s*(?:years?|yrs?)/i) ||
+                         combinedText.match(/(\d+)\+?\s*years?/i);
+
+        if (expMatch && expMatch[1]) {
+          experienceText = `${expMatch[1].trim()} yrs exp`;
         }
 
         const postedDate = job.created ? new Date(job.created) : new Date();
@@ -51,8 +64,7 @@ export function useJobs() {
           company: companyName,
           location: job.location?.display_name || 'India',
           salary: salaryText,
-          salary_min: job.salary_min,
-          salary_max: job.salary_max,
+          experience: experienceText,
           description: job.description,
           tags: [currentFilters.keyword],
           postedAt: postedDate,
@@ -62,7 +74,6 @@ export function useJobs() {
         };
       });
 
-      // Apply Date Filter
       if (currentFilters.dateFilter === 'today') {
         formattedJobs = formattedJobs.filter(j => j.diffDays === 0);
       } else if (currentFilters.dateFilter === 'week') {
@@ -71,7 +82,6 @@ export function useJobs() {
         formattedJobs = formattedJobs.filter(j => j.diffDays <= 30);
       }
 
-      // Sort by newest date
       formattedJobs.sort((a, b) => b.postedAt - a.postedAt);
 
       setJobs(formattedJobs);

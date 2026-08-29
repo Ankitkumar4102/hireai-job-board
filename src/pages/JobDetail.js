@@ -25,9 +25,21 @@ export default function JobDetail() {
     </div>
   );
 
-  const color = strColor(job.company?.display_name);
-  const init  = initials(job.company?.display_name);
+  // Safely extract company name and location strings
+  const companyName = typeof job.company === 'object' ? job.company?.display_name : job.company || 'Top Company';
+  const locationName = typeof job.location === 'object' ? job.location?.display_name : job.location || 'India';
+
+  const color = strColor(companyName);
+  const init  = initials(companyName);
   const tags  = job.tags || [];
+
+  // Safe time display logic
+  const displayTime = job.timeAgo || timeAgo(job.created || job.postedAt) || 'Recently';
+
+  // Safe salary display logic
+  const displaySalary = job.salary && typeof job.salary === 'string' && job.salary !== 'Salary not listed'
+    ? job.salary 
+    : fmtSalary(job.salary_min, job.salary_max);
 
   const handleSave = () => {
     toggleSaved(job);
@@ -53,9 +65,9 @@ export default function JobDetail() {
               <div className="dc-title-block">
                 <h1 className="dc-title">{job.title}</h1>
                 <div className="dc-meta">
-                  <span><Building2 size={14}/>{job.company?.display_name}</span>
-                  <span><MapPin    size={14}/>{job.location?.display_name}</span>
-                  <span><Clock     size={14}/>{timeAgo(job.created)}</span>
+                  <span><Building2 size={14}/>{companyName}</span>
+                  <span><MapPin    size={14}/>{locationName}</span>
+                  <span><Clock     size={14}/>{displayTime}</span>
                 </div>
               </div>
             </div>
@@ -73,14 +85,14 @@ export default function JobDetail() {
                 <IndianRupee size={17}/>
                 <div>
                   <p className="dcs-label">Salary</p>
-                  <p className="dcs-val">{fmtSalary(job.salary_min, job.salary_max)}</p>
+                  <p className="dcs-val">{displaySalary}</p>
                 </div>
               </div>
               <div className="dc-stat">
                 <Globe size={17}/>
                 <div>
                   <p className="dcs-label">Work Mode</p>
-                  <p className="dcs-val">{job.location?.display_name?.toLowerCase().includes('remote') ? 'Remote' : 'On-site'}</p>
+                  <p className="dcs-val">{locationName.toLowerCase().includes('remote') ? 'Remote' : 'On-site'}</p>
                 </div>
               </div>
               <div className="dc-stat">
@@ -100,7 +112,7 @@ export default function JobDetail() {
 
             {/* Actions */}
             <div className="dc-actions">
-              <a href={job.redirect_url === '#' ? undefined : job.redirect_url}
+              <a href={job.redirect_url === '#' || !job.redirect_url ? undefined : job.redirect_url}
                  target="_blank" rel="noopener noreferrer"
                  className="btn-apply">
                 Apply Now <ExternalLink size={15}/>
@@ -119,10 +131,10 @@ export default function JobDetail() {
             <div className="aside-card">
               <h3>Quick Info</h3>
               <ul className="aside-list">
-                <li><span>Company</span><strong>{job.company?.display_name}</strong></li>
-                <li><span>Location</span><strong>{job.location?.display_name}</strong></li>
-                <li><span>Posted</span><strong>{timeAgo(job.created)}</strong></li>
-                <li><span>Salary</span><strong>{fmtSalary(job.salary_min, job.salary_max)}</strong></li>
+                <li><span>Company</span><strong>{companyName}</strong></li>
+                <li><span>Location</span><strong>{locationName}</strong></li>
+                <li><span>Posted</span><strong>{displayTime}</strong></li>
+                <li><span>Salary</span><strong>{displaySalary}</strong></li>
               </ul>
             </div>
             <div className="aside-card aside-cta">

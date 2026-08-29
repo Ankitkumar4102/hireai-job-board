@@ -31,18 +31,14 @@ export function useJobs() {
       let formattedJobs = data.results.map(job => {
         const companyName = job.company?.display_name || 'Top Company';
         
-        // Proper Adzuna salary extraction
+        // Comprehensive salary extraction from Adzuna
         let salaryText = 'Salary not listed';
         if (job.salary_min && job.salary_max) {
-          const minLakhs = (job.salary_min / 100000).toFixed(1);
-          const maxLakhs = (job.salary_max / 100000).toFixed(1);
-          salaryText = `₹${minLakhs}L - ₹${maxLakhs}L/yr`;
+          salaryText = `₹${(job.salary_min / 100000).toFixed(1)}L - ₹${(job.salary_max / 100000).toFixed(1)}L/yr`;
         } else if (job.salary_min) {
-          const minLakhs = (job.salary_min / 100000).toFixed(1);
-          salaryText = `₹${minLakhs}L+/yr`;
+          salaryText = `₹${(job.salary_min / 100000).toFixed(1)}L+/yr`;
         } else if (job.salary_max) {
-          const maxLakhs = (job.salary_max / 100000).toFixed(1);
-          salaryText = `Up to ₹${maxLakhs}L/yr`;
+          salaryText = `Up to ₹${(job.salary_max / 100000).toFixed(1)}L/yr`;
         }
 
         const postedDate = job.created ? new Date(job.created) : new Date();
@@ -55,11 +51,14 @@ export function useJobs() {
           company: companyName,
           location: job.location?.display_name || 'India',
           salary: salaryText,
+          salary_min: job.salary_min,
+          salary_max: job.salary_max,
           description: job.description,
           tags: [currentFilters.keyword],
           postedAt: postedDate,
           timeAgo: timeAgo,
-          diffDays: diffDays
+          diffDays: diffDays,
+          redirect_url: job.redirect_url
         };
       });
 

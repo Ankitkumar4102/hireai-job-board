@@ -40,14 +40,14 @@ export function useJobs() {
           salaryText = `Up to ₹${(job.salary_max / 100000).toFixed(1)}L/yr`;
         }
 
-        // Smart experience extraction from description or title
+        // Smart experience extraction without unnecessary escape warnings
         let experienceText = 'Not specified';
         const desc = job.description || '';
         const titleText = job.title || '';
         const combinedText = `${titleText} ${desc}`;
         
-        const expMatch = combinedText.match(/(\d+[\s\-]*(?:to|\-)?[\s\d]*)\s*(?:years?|yrs?)\s*(?:of)?\s*experience/i) ||
-                         combinedText.match(/experience\s*(?:required|of)?\s*:?\s*(\d+[\s\-]*(?:to|\-)?[\s\d]*)\s*(?:years?|yrs?)/i) ||
+        const expMatch = combinedText.match(/(\d+\s*(?:to|-)?\s*\d*)\s*(?:years?|yrs?)\s*(?:of)?\s*experience/i) ||
+                         combinedText.match(/experience\s*(?:required|of)?\s*:?\s*(\d+\s*(?:to|-)?\s*\d*)\s*(?:years?|yrs?)/i) ||
                          combinedText.match(/(\d+)\+?\s*years?/i);
 
         if (expMatch && expMatch[1]) {

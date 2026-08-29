@@ -68,7 +68,7 @@ export default function JobCard({ job, delay = 0 }) {
         </div>
       )}
 
-      {/* footer */}
+      {/* footer */ }
       <div className="jcard-foot">
         <span className="jcard-salary">
           <IndianRupee size={13}/>{displaySalary}
